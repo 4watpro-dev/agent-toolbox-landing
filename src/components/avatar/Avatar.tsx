@@ -24,8 +24,12 @@ const BODIES: Record<GhostShape, string> = {
   classic:
     'M60 14 C85 14 104 33 104 58 L104 92 Q96.7 108 89.3 92 Q82 80 74.7 92 Q67.3 108 60 92 Q52.7 80 45.3 92 Q38 108 30.7 92 Q23.3 80 16 92 L16 58 C16 33 35 14 60 14 Z',
   round: 'M60 14 C85 14 104 34 104 59 C104 84 85 104 60 104 C35 104 16 84 16 59 C16 34 35 14 60 14 Z',
-  quiff:
-    'M40 22 C42 8 58 -1 78 3 C88 5 94 10 96 16 C90 12 82 12 77 15 C93 22 104 38 104 57 C104 80 88 94 70 101 C60 105 52 108 44 116 C45 106 36 99 29 90 C21 81 16 70 16 57 C16 41 25 28 40 22 Z'
+  sheet: 'M22 91 L22 52 A38 38 0 0 1 98 52 L98 98 C98 104 95 107 89 107 C76 107 63 104 53 96 C46 90 42 85.5 37 85.5 C31 85.5 26 88 22 91 Z'
+}
+
+/** Revers du drap, visible sous le corps : même teinte, assombrie. */
+const FOLDS: Partial<Record<GhostShape, string>> = {
+  sheet: 'M22 89 L22 101 C22 106 24 108 29 107.5 C40 106.5 50 104 59 100.5 C52 96 46 88 39 85.5 C32 84 26 86 22 89 Z'
 }
 
 const SPRING = { type: 'spring', stiffness: 260, damping: 20 } as const
@@ -66,6 +70,7 @@ export function Avatar({
   const uid = useId()
   const ink = faceColor(config.bodyColor)
   const body = BODIES[config.shape]
+  const fold = FOLDS[config.shape]
   const rimId = `${uid}-rim`
   const bellyId = `${uid}-belly`
   const auraId = `${uid}-aura`
@@ -123,6 +128,12 @@ export function Avatar({
               />
             )}
 
+            {fold && (
+              <>
+                <path d={fold} fill={config.bodyColor} />
+                <path d={fold} fill="rgb(0 0 0 / 38%)" />
+              </>
+            )}
             <path d={body} fill={config.bodyColor} />
             <ellipse cx={CX} cy={76} rx={28} ry={21} fill={`url(#${bellyId})`} clipPath={`url(#${clipId})`} />
             <path d={body} fill={`url(#${rimId})`} />

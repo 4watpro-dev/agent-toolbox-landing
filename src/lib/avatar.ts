@@ -4,8 +4,8 @@ export type EyeStyle = (typeof EYE_STYLES)[number]
 export const ACCESSORIES = ['none', 'glasses', 'headphones', 'bowtie', 'beanie'] as const
 export type Accessory = (typeof ACCESSORIES)[number]
 
-/** `quiff` n'existe que sur la landing (pas encore dans l'app) : mèche rock et queue en biais. */
-export const GHOST_SHAPES = ['drop', 'classic', 'round', 'quiff'] as const
+/** `sheet` n'existe que sur la landing (pas encore dans l'app) : arche haute, drap replié en vague. */
+export const GHOST_SHAPES = ['drop', 'classic', 'round', 'sheet'] as const
 export type GhostShape = (typeof GHOST_SHAPES)[number]
 
 export const AVATAR_STATES = [
