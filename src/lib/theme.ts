@@ -7,8 +7,20 @@ const root = (): HTMLElement => document.documentElement
 
 /**
  * Le thème vit dans l'attribut `data-theme` de <html>. Un script dans index.html
- * le pose avant le premier affichage : choix enregistré, sinon thème du système.
+ * le pose avant le premier affichage avec la même règle que `resolve()`.
+ *
+ * Sur mobile (< 768 px) il n'y a pas de switch : on suit toujours le système.
+ * Sur grand écran, le choix enregistré l'emporte, sinon on suit le système.
+ * Sans préférence système exprimée, le sombre est la valeur par défaut.
  */
+const MOBILE = '(max-width: 767px)'
+const SYSTEM_LIGHT = '(prefers-color-scheme: light)'
+
+function resolve(): Theme {
+  const saved = window.matchMedia(MOBILE).matches ? null : savedTheme()
+  return saved ?? (window.matchMedia(SYSTEM_LIGHT).matches ? 'light' : 'dark')
+}
+
 function read(): Theme {
   return root().dataset.theme === 'light' ? 'light' : 'dark'
 }
@@ -17,16 +29,17 @@ function subscribe(onChange: () => void): () => void {
   const observer = new MutationObserver(onChange)
   observer.observe(root(), { attributes: true, attributeFilter: ['data-theme'] })
 
-  // Tant que le visiteur n'a rien choisi, on suit le système.
-  const system = window.matchMedia('(prefers-color-scheme: light)')
-  const onSystem = (): void => {
-    if (!savedTheme()) apply(system.matches ? 'light' : 'dark')
+  // Changement du thème système, ou passage mobile ↔ grand écran : on recalcule.
+  const queries = [window.matchMedia(SYSTEM_LIGHT), window.matchMedia(MOBILE)]
+  const onMedia = (): void => {
+    const next = resolve()
+    if (next !== read()) apply(next)
   }
-  system.addEventListener('change', onSystem)
+  queries.forEach((q) => q.addEventListener('change', onMedia))
 
   return () => {
     observer.disconnect()
-    system.removeEventListener('change', onSystem)
+    queries.forEach((q) => q.removeEventListener('change', onMedia))
   }
 }
 

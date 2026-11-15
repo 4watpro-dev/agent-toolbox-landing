@@ -14,17 +14,17 @@ export default function ThemeToggle() {
       aria-label="Mode clair"
       title={light ? 'Passer en mode sombre' : 'Passer en mode clair'}
       onClick={() => setTheme(light ? 'dark' : 'light')}
-      className="relative flex h-9 w-16 shrink-0 sm:h-10 sm:w-[4.5rem] items-center rounded-full border border-border bg-surface p-1 transition-colors hover:bg-surface-2"
+      className="relative flex h-10 w-[4.5rem] shrink-0 items-center rounded-full border border-border bg-surface p-1 transition-colors hover:bg-surface-2"
     >
       <motion.span
         layout
         transition={{ type: 'spring', stiffness: 500, damping: 32 }}
-        className="grid size-7 place-items-center sm:size-8 rounded-full bg-accent text-accent-text shadow-[0_2px_8px_rgb(0_0_0/25%)]"
+        className="grid size-8 place-items-center rounded-full bg-accent text-accent-text shadow-[0_2px_8px_rgb(0_0_0/25%)]"
         style={{ marginLeft: light ? 'auto' : 0 }}
       >
         {light ? <SunIcon /> : <MoonIcon />}
       </motion.span>
-      <span className={`pointer-events-none absolute top-1/2 -translate-y-1/2 text-muted ${light ? 'left-2 sm:left-2.5' : 'right-2 sm:right-2.5'}`} aria-hidden="true">
+      <span className={`pointer-events-none absolute top-1/2 -translate-y-1/2 text-muted ${light ? 'left-2.5' : 'right-2.5'}`} aria-hidden="true">
         {light ? <MoonIcon /> : <SunIcon />}
       </span>
     </button>

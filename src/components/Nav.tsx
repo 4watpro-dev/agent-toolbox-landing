@@ -28,7 +28,10 @@ export default function Nav() {
           ))}
         </ul>
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <ThemeToggle />
+          {/* Pas de switch sur mobile : le thème y suit celui de l'appareil. */}
+          <div className="hidden md:block">
+            <ThemeToggle />
+          </div>
           <a href={DOWNLOADS[platform].href} className="btn-primary min-h-9 px-3.5 text-sm sm:min-h-10 sm:px-4">
             Télécharger
           </a>
