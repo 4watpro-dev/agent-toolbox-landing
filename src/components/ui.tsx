@@ -1,7 +1,7 @@
 import { motion } from 'motion/react'
 import type { CSSProperties, ReactNode } from 'react'
 import SpotlightCard from '@/components/SpotlightCard'
-import { useMediaQuery } from '@/lib/hooks'
+import { useIsLight } from '@/lib/theme'
 
 /** Apparition au défilement. Le mouvement réduit est géré par le MotionConfig de l'App. */
 export function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
@@ -40,7 +40,7 @@ export function Section({ id, labelledBy, children, className = '' }: { id: stri
 
 /** SpotlightCard en verre, qui suit le thème du système. */
 export function GlowCard({ children, color = '#c8f031', className = '', style }: { children: ReactNode; color?: string; className?: string; style?: CSSProperties }) {
-  const light = useMediaQuery('(prefers-color-scheme: light)')
+  const light = useIsLight()
   return (
     <SpotlightCard
       theme={light ? 'light' : 'dark'}

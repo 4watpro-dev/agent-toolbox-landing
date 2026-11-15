@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { useMediaQuery, useReducedMotion } from '@/lib/hooks'
+import { useIsLight } from '@/lib/theme'
 
 const Aurora = lazy(() => import('./Aurora'))
 
@@ -10,7 +11,7 @@ const Aurora = lazy(() => import('./Aurora'))
 export default function Background() {
   const reduced = useReducedMotion()
   const wide = useMediaQuery('(min-width: 768px)')
-  const light = useMediaQuery('(prefers-color-scheme: light)')
+  const light = useIsLight()
   const [idle, setIdle] = useState(false)
 
   useEffect(() => {

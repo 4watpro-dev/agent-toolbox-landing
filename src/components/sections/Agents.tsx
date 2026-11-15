@@ -3,7 +3,7 @@ import { Avatar } from '@/components/avatar/Avatar'
 import TiltedCard from '@/components/TiltedCard'
 import { Reveal, Section, SectionHeading } from '@/components/ui'
 import { AGENTS, type Agent } from '@/data/agents'
-import { useMediaQuery } from '@/lib/hooks'
+import { useIsLight } from '@/lib/theme'
 
 const SKILLS: Record<string, string[]> = {
   drpro: ['Rédaction', 'Note sur 5', 'Itérations'],
@@ -35,7 +35,7 @@ export default function Agents() {
 
 function AgentCard({ agent }: { agent: Agent }) {
   const [flipped, setFlipped] = useState(false)
-  const light = useMediaQuery('(prefers-color-scheme: light)')
+  const light = useIsLight()
   const face = 'flex h-full flex-col items-center justify-center rounded-[1.75rem] border border-border p-6 text-center'
   const surface = {
     background: `radial-gradient(120% 70% at 50% 0%, ${agent.color}${light ? '2e' : '38'}, transparent 70%), var(--card-solid)`

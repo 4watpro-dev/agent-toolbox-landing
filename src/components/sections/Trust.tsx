@@ -2,7 +2,7 @@ import { Avatar } from '@/components/avatar/Avatar'
 import ShinyText from '@/components/ShinyText'
 import { Reveal, Section } from '@/components/ui'
 import { AGENTS } from '@/data/agents'
-import { useMediaQuery } from '@/lib/hooks'
+import { useIsLight } from '@/lib/theme'
 
 const POINTS = [
   'Rien ne s’envoie, ne se modifie ni ne se supprime sans ta confirmation.',
@@ -11,7 +11,7 @@ const POINTS = [
 ]
 
 export default function Trust() {
-  const light = useMediaQuery('(prefers-color-scheme: light)')
+  const light = useIsLight()
   return (
     <Section id="securite" labelledBy="trust-title">
       <Reveal>

@@ -8,8 +8,17 @@
       name="description"
       content="Crée tes propres agents IA, chacun avec sa personnalité. Ils vivent dans une petite icône flottante sur ton bureau. Gratuit pour macOS et Windows."
     />
-    <meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f6f7f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e1014" />
+    <script>
+      // Thème posé avant le premier affichage : choix enregistré, sinon thème du système.
+      (function () {
+        var t = null
+        try { t = localStorage.getItem('theme') } catch (e) {}
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+        document.documentElement.dataset.theme = t
+        document.querySelector('meta[name="theme-color"]').content = t === 'light' ? '#f6f7f4' : '#0e1014'
+      })()
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <meta property="og:type" content="website" />

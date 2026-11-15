@@ -4,12 +4,13 @@ import GradientText from '@/components/GradientText'
 import { DownloadIcon } from '@/components/icons'
 import { Reveal, Section } from '@/components/ui'
 import { AGENTS } from '@/data/agents'
-import { DOWNLOADS, useMediaQuery, usePlatform } from '@/lib/hooks'
+import { DOWNLOADS, usePlatform } from '@/lib/hooks'
+import { useIsLight } from '@/lib/theme'
 
 export default function FinalCta() {
   const platform = usePlatform()
   const other = platform === 'mac' ? 'windows' : 'mac'
-  const light = useMediaQuery('(prefers-color-scheme: light)')
+  const light = useIsLight()
 
   return (
     <Section id="telecharger" labelledBy="cta-title">
