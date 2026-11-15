@@ -20,7 +20,7 @@ export const AGENTS: Agent[] = [
     role: 'Créateur de prompts',
     topic: 'tes prompts',
     line: '3 étoiles sur 5. Pas mal… mais on peut faire mieux. On y retourne ?',
-    avatar: { bodyColor: '#8b5cf6', glowColor: '#ffffff', eyeStyle: 'oval', accessory: 'glasses', shape: 'drop' },
+    avatar: { bodyColor: '#8b5cf6', glowColor: '#ffffff', eyeStyle: 'oval', accessory: 'none', shape: 'drop' },
     color: '#8b5cf6'
   },
   {
@@ -29,7 +29,7 @@ export const AGENTS: Agent[] = [
     role: 'Stratège CRM et emailing',
     topic: 'tes campagnes',
     line: 'Ton objet d’email est trop sage. J’en ai trois qui donnent envie de cliquer.',
-    avatar: { bodyColor: '#3fae5e', glowColor: '#fdf6c8', eyeStyle: 'oval', accessory: 'headphones', shape: 'classic' },
+    avatar: { bodyColor: '#3fae5e', glowColor: '#fdf6c8', eyeStyle: 'oval', accessory: 'none', shape: 'classic' },
     color: '#3fae5e'
   },
   {
@@ -38,7 +38,7 @@ export const AGENTS: Agent[] = [
     role: 'Community manager événementiel',
     topic: 'tes posts',
     line: 'Date annoncée, billets en vente : je chauffe la salle dès ce soir.',
-    avatar: { bodyColor: '#5b9dff', glowColor: '#ffffff', eyeStyle: 'oval', accessory: 'beanie', shape: 'drop' },
+    avatar: { bodyColor: '#5b9dff', glowColor: '#ffffff', eyeStyle: 'oval', accessory: 'none', shape: 'round' },
     color: '#5b9dff'
   }
 ]
