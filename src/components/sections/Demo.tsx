@@ -6,6 +6,10 @@ import { AGENTS, type Agent } from '@/data/agents'
 
 const FILTERS = ['Tous', 'Travail', 'Écriture', 'Code', 'Perso', 'Autre']
 
+/** Comme dans l'app : les favoris d'abord. Mailo est le favori de la démo. */
+const FAVORITE = 'mailo'
+const GALLERY = [...AGENTS].sort((a, b) => Number(b.id === FAVORITE) - Number(a.id === FAVORITE))
+
 /**
  * Faux bureau : la bulle dans le coin ouvre le panneau d'agents, fidèle à l'app.
  * Le panneau reste sombre dans les deux thèmes, comme l'app.
@@ -156,7 +160,7 @@ function Gallery({ onPick }: { onPick: (a: Agent) => void }) {
       </div>
 
       <ul className="grid flex-1 grid-cols-2 gap-2.5 overflow-auto p-3">
-        {AGENTS.map((a, i) => (
+        {GALLERY.map((a, i) => (
           <motion.li
             key={a.id}
             initial={{ opacity: 0, y: 10 }}
@@ -168,8 +172,8 @@ function Gallery({ onPick }: { onPick: (a: Agent) => void }) {
               onClick={() => onPick(a)}
               className="avatar-hop relative flex h-full w-full flex-col items-center rounded-xl border border-white/12 bg-white/6 px-2 pt-3 pb-3 text-center shadow-[inset_0_1px_0_rgb(255_255_255/9%)] transition-colors hover:bg-white/11"
             >
-              <span className={`absolute top-1.5 left-2 text-sm ${i === 1 ? 'text-[#f2c14e]' : 'text-white/50'}`} aria-hidden="true">
-                {i === 1 ? '★' : '☆'}
+              <span className={`absolute top-1.5 left-2 text-sm ${a.id === FAVORITE ? 'text-[#f2c14e]' : 'text-white/50'}`} aria-hidden="true">
+                {a.id === FAVORITE ? '★' : '☆'}
               </span>
               <span className="absolute top-1 right-2 text-white/50" aria-hidden="true">
                 ···

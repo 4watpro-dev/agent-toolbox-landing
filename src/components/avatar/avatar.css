@@ -3,11 +3,6 @@
   overflow: visible;
 }
 
-.avatar-ground {
-  fill: rgb(0 0 0 / 38%);
-  filter: blur(2px);
-}
-
 /* Léger flottement au repos. */
 .avatar-float {
   animation: avatar-float 3.6s ease-in-out infinite;
@@ -52,9 +47,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card:hover .avatar,
-  .switcher-list li:hover .avatar,
-  .widget:hover .avatar,
+  .avatar-hop:hover .avatar,
   .avatar-float,
   .avatar-aura-pulse {
     animation: none;
