@@ -38,7 +38,7 @@ export const AGENTS: Agent[] = [
     role: 'Community manager événementiel',
     topic: 'tes posts',
     line: 'Date annoncée, billets en vente : je chauffe la salle dès ce soir.',
-    avatar: { bodyColor: '#5b9dff', glowColor: '#ffffff', eyeStyle: 'oval', accessory: 'none', shape: 'round' },
+    avatar: { bodyColor: '#5b9dff', glowColor: '#ffffff', eyeStyle: 'oval', accessory: 'none', shape: 'quiff' },
     color: '#5b9dff'
   }
 ]
