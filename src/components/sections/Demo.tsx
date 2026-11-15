@@ -101,7 +101,7 @@ export default function Demo() {
               aria-label={open ? 'Fermer le panneau des agents' : 'Ouvrir le panneau des agents'}
               className="avatar-hop app-bubble absolute right-3 bottom-3 grid size-16 place-items-center rounded-full sm:right-5 sm:bottom-5"
             >
-              <span className={open ? '' : 'bubble-ping'} aria-hidden="true" />
+              {!open && <span className="bubble-ping" aria-hidden="true" />}
               <Avatar config={AGENTS[2].avatar} size={44} groundShadow={false} state={open ? 'happy' : 'idle'} />
             </button>
           </div>
