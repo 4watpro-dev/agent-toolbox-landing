@@ -65,6 +65,11 @@ interface AvatarProps {
   label?: string
   /** Ajout landing : décalage du regard (±4 unités environ), pour suivre le curseur. */
   look?: { x: number; y: number }
+  /**
+   * Ajout landing : liseré d'un pixel autour du corps, dans sa teinte. Le bord givré
+   * se fond sinon dans un fond clair, et la silhouette paraît floue.
+   */
+  outline?: boolean
 }
 
 export function Avatar({
@@ -74,7 +79,8 @@ export function Avatar({
   groundShadow = true,
   floating = true,
   label,
-  look
+  look,
+  outline = true
 }: AvatarProps): React.JSX.Element {
   const expression = EXPRESSIONS[state]
   const paused = useContext(AvatarPausedContext)
@@ -165,6 +171,17 @@ export function Avatar({
             )}
 
             <path d={body} fill={`url(#${fillId})`} />
+            {outline && (
+              <path
+                d={body}
+                fill="none"
+                stroke={mixColor(palette.edge, '#000000', 0.18)}
+                strokeOpacity={0.55}
+                strokeWidth={1}
+                vectorEffect="non-scaling-stroke"
+                shapeRendering="geometricPrecision"
+              />
+            )}
             <g clipPath={`url(#${clipId})`}>
               <ellipse
                 cx={CX}

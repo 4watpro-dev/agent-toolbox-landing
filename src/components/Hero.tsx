@@ -138,19 +138,25 @@ function Stage({ active, onPick }: { active: number; onPick: (i: number) => void
           {AGENTS.map((a, i) => {
             const on = i === active
             return (
-              <motion.button
+              <button
                 key={a.id}
                 type="button"
                 onClick={() => onPick(i)}
                 aria-label={`${a.name}, ${a.role}`}
                 aria-pressed={on}
                 className="avatar-hop flex flex-col items-center rounded-2xl p-1"
-                animate={{ scale: on ? 1 : 0.74 }}
-                transition={{ type: 'spring', stiffness: 260, damping: 22 }}
               >
-                <Avatar config={a.avatar} state={on ? 'listening' : 'idle'} size={size} look={look} />
+                {/* Taille réelle animée (pas de zoom) : le SVG est redessiné net à chaque taille. */}
+                <motion.span
+                  className="block [&_svg]:h-full [&_svg]:w-full"
+                  initial={false}
+                  animate={{ width: on ? size : size * 0.74, height: on ? size : size * 0.74 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 26 }}
+                >
+                  <Avatar config={a.avatar} state={on ? 'listening' : 'idle'} size={size} look={look} />
+                </motion.span>
                 <span className={`mt-1 text-sm font-semibold ${on ? 'text-text' : 'text-muted'}`}>{a.name}</span>
-              </motion.button>
+              </button>
             )
           })}
         </div>

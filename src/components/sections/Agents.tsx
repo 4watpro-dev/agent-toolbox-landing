@@ -53,6 +53,7 @@ function AgentCard({ agent }: { agent: Agent }) {
       shadow={0.35}
       showTooltip={false}
       gyroscope={false}
+      intro={false}
       captionText={`${agent.name}, ${agent.role}. Retourner la carte`}
       flipped={flipped}
       onFlip={setFlipped}
