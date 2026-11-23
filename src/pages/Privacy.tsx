@@ -73,17 +73,15 @@ export default function Privacy() {
         </Block>
 
         <Block title="Qui d’autre y a accès">
-          <ul>
-            <li>
-              <strong className="text-text">Netlify</strong> héberge le site et reçoit les inscriptions à la liste d’attente. Cette
-              société, établie aux États-Unis, agit pour notre compte ; les transferts hors de l’Union européenne sont encadrés par
-              les garanties prévues par le RGPD.
-            </li>
-            <li>
-              <strong className="text-text">Google Fonts</strong> fournit les polices du site. Pour les afficher, ton navigateur
-              contacte les serveurs de Google, qui reçoivent ton adresse IP.
-            </li>
-          </ul>
+          <p>
+            <strong className="text-text">Netlify</strong> héberge le site et reçoit les inscriptions à la liste d’attente. Cette
+            société, établie aux États-Unis, agit pour notre compte ; les transferts hors de l’Union européenne sont encadrés par les
+            garanties prévues par le RGPD.
+          </p>
+          <p>
+            Les polices, les images et le code du site sont servis depuis le site lui-même : aucun service tiers (polices, statistiques,
+            publicité) n’est contacté pendant ta visite.
+          </p>
           <p>Personne d’autre.</p>
         </Block>
 
