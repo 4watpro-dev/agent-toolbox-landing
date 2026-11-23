@@ -46,7 +46,6 @@ npx netlify deploy --prod --dir=dist
 
 - **Liste d'attente** : le formulaire (`src/components/Waitlist.tsx`) envoie les e-mails via Netlify Forms (formulaire « lancement »). Sur Vercel ou ailleurs, change `WAITLIST_ENDPOINT` pour pointer vers ton outil d'emailing.
 - **Image de partage** : ajoute `public/og-image.png` (1200 × 630), référencée dans `index.html`.
-- **Pied de page** : les liens Confidentialité et Contact pointent vers des ancres provisoires (`src/components/Footer.tsx`).
 
 ## Où modifier quoi
 
@@ -56,6 +55,7 @@ npx netlify deploy --prod --dir=dist
 | Couleurs, verre, thème clair/sombre | `src/index.css` |
 | Avatar fantôme (copié de l'app Agent Toolbox, avec une prop `look` en plus) | `src/components/avatar/` |
 | Sections | `src/components/Hero.tsx`, `src/components/sections/*` |
+| Politique de confidentialité (responsable, contact, durées) | `src/pages/Privacy.tsx`, servie sur `/confidentialite/` |
 | Composants React Bits | `src/components/*.tsx` (ajoutés avec `npx shadcn@latest add @react-bits/<Nom>-TS-TW`) |
 
 ## Performance et accessibilité

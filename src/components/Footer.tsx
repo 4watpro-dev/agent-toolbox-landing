@@ -12,9 +12,9 @@ export default function Footer() {
         </p>
         <nav aria-label="Pied de page">
           <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2">
-            <li><a href="#faq" className="hover:text-text">FAQ</a></li>
-            <li><a href="#confidentialite" className="hover:text-text">Confidentialité</a></li>
-            <li><a href="#contact" className="hover:text-text">Contact</a></li>
+            <li><a href="/#faq" className="hover:text-text">FAQ</a></li>
+            <li><a href="/confidentialite/" className="hover:text-text">Confidentialité</a></li>
+            <li><a href="/confidentialite/#contact" className="hover:text-text">Contact</a></li>
           </ul>
         </nav>
       </div>

@@ -40,7 +40,6 @@ export default function FinalCta() {
             <ClickSpark sparkColor={['#c8f031', '#a78bfa', '#7cb6ff']} sparkCount={10} sparkRadius={28}>
               <Waitlist size="lg" align="center" />
             </ClickSpark>
-            <p className="mt-4 text-sm text-muted">Un seul e-mail, le jour du lancement. Pas de spam, promis.</p>
           </div>
         </div>
       </Reveal>

@@ -54,7 +54,7 @@ export default function Waitlist({ size = 'md', align = 'start' }: { size?: 'md'
       data-netlify="true"
       netlify-honeypot="bot-field"
       onSubmit={onSubmit}
-      className={`flex w-full flex-col gap-3 sm:flex-row ${justify} ${align === 'center' ? 'mx-auto max-w-lg' : 'max-w-lg'}`}
+      className={`flex w-full flex-col flex-wrap gap-3 sm:flex-row ${justify} ${align === 'center' ? 'mx-auto max-w-lg' : 'max-w-lg'}`}
     >
       <input type="hidden" name="form-name" value={FORM_NAME} />
       <p className="hidden">
@@ -79,6 +79,12 @@ export default function Waitlist({ size = 'md', align = 'start' }: { size?: 'md'
       <button type="submit" disabled={status === 'sending'} className={`btn-primary ${big ? 'min-h-14 px-8 text-lg' : ''}`}>
         {status === 'sending' ? 'Envoi…' : 'Être prévenu du lancement'}
       </button>
+      <p className={`text-xs text-muted sm:basis-full ${align === 'center' ? 'text-center' : 'text-center lg:text-left'}`}>
+        Un seul e-mail, le jour du lancement. Désinscription à tout moment.{' '}
+        <a href="/confidentialite/" className="underline decoration-[var(--accent-line)] underline-offset-4 hover:text-text">
+          Confidentialité
+        </a>
+      </p>
       {status === 'error' && (
         <p role="alert" className="text-sm text-muted sm:basis-full">
           Oups, l’inscription n’est pas passée. Réessaie dans un instant.
