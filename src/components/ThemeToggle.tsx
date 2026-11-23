@@ -13,7 +13,10 @@ export default function ThemeToggle() {
       aria-checked={light}
       aria-label="Mode clair"
       title={light ? 'Passer en mode sombre' : 'Passer en mode clair'}
-      onClick={() => setTheme(light ? 'dark' : 'light')}
+      onClick={(e) => {
+        const box = e.currentTarget.getBoundingClientRect()
+        setTheme(light ? 'dark' : 'light', { x: box.left + box.width / 2, y: box.top + box.height / 2 })
+      }}
       className="relative flex h-10 w-[4.5rem] shrink-0 items-center rounded-full border border-border bg-surface p-1 transition-colors hover:bg-surface-2"
     >
       <motion.span

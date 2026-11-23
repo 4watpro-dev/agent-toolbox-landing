@@ -11,13 +11,14 @@
     <meta name="theme-color" content="#0e1014" />
     <script>
       // Thème posé avant le premier affichage (même règle que src/lib/theme.ts) :
-      // sur mobile, toujours le thème du système ; ailleurs, le choix enregistré s'il existe.
+      // sur mobile, toujours le thème du système ; ailleurs, le choix enregistré, sinon le sombre.
       (function () {
-        var t = null
-        if (!matchMedia('(max-width: 767px)').matches) {
-          try { t = localStorage.getItem('theme') } catch (e) {}
+        var t = 'dark'
+        if (matchMedia('(max-width: 767px)').matches) {
+          t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+        } else {
+          try { if (localStorage.getItem('theme') === 'light') t = 'light' } catch (e) {}
         }
-        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
         document.documentElement.dataset.theme = t
         document.querySelector('meta[name="theme-color"]').content = t === 'light' ? '#f6f7f4' : '#0e1014'
       })()

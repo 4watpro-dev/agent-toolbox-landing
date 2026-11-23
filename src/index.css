@@ -89,10 +89,11 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Bascule de thème en douceur, sans animer au chargement. */
-html.theme-transition,
-html.theme-transition * {
-  transition: background-color 250ms ease, border-color 250ms ease, color 250ms ease !important;
+/* Bascule de thème : le nouveau thème s'ouvre en cercle par-dessus l'ancien (voir setTheme). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 body {

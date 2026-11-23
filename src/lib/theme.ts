@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react'
+import { flushSync } from 'react-dom'
 
 export type Theme = 'light' | 'dark'
 
@@ -10,24 +11,25 @@ const root = (): HTMLElement => document.documentElement
  * le pose avant le premier affichage avec la même règle que `resolve()`.
  *
  * Sur mobile (< 768 px) il n'y a pas de switch : on suit toujours le système.
- * Sur grand écran, le choix enregistré l'emporte, sinon on suit le système.
- * Sans préférence système exprimée, le sombre est la valeur par défaut.
+ * Sur grand écran, le choix enregistré l'emporte, sinon c'est le sombre.
  */
 const MOBILE = '(max-width: 767px)'
 const SYSTEM_LIGHT = '(prefers-color-scheme: light)'
 
 function resolve(): Theme {
-  const saved = window.matchMedia(MOBILE).matches ? null : savedTheme()
-  return saved ?? (window.matchMedia(SYSTEM_LIGHT).matches ? 'light' : 'dark')
+  if (window.matchMedia(MOBILE).matches) return window.matchMedia(SYSTEM_LIGHT).matches ? 'light' : 'dark'
+  return savedTheme() ?? 'dark'
 }
 
 function read(): Theme {
   return root().dataset.theme === 'light' ? 'light' : 'dark'
 }
 
+/** Composants abonnés au thème : prévenus directement à chaque changement. */
+const listeners = new Set<() => void>()
+
 function subscribe(onChange: () => void): () => void {
-  const observer = new MutationObserver(onChange)
-  observer.observe(root(), { attributes: true, attributeFilter: ['data-theme'] })
+  listeners.add(onChange)
 
   // Changement du thème système, ou passage mobile ↔ grand écran : on recalcule.
   const queries = [window.matchMedia(SYSTEM_LIGHT), window.matchMedia(MOBILE)]
@@ -38,7 +40,7 @@ function subscribe(onChange: () => void): () => void {
   queries.forEach((q) => q.addEventListener('change', onMedia))
 
   return () => {
-    observer.disconnect()
+    listeners.delete(onChange)
     queries.forEach((q) => q.removeEventListener('change', onMedia))
   }
 }
@@ -55,21 +57,40 @@ function savedTheme(): Theme | null {
 function apply(theme: Theme): void {
   root().dataset.theme = theme
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#f6f7f4' : '#0e1014')
+  listeners.forEach((notify) => notify())
 }
 
-export function setTheme(theme: Theme): void {
-  // Fondu des couleurs le temps de la bascule seulement.
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  if (!reduce) {
-    root().classList.add('theme-transition')
-    window.setTimeout(() => root().classList.remove('theme-transition'), 300)
-  }
-  apply(theme)
+/**
+ * Bascule de thème. Avec les View Transitions du navigateur, l'ancienne et la nouvelle
+ * page sont capturées en images et le nouveau thème s'ouvre en cercle depuis le bouton :
+ * une seule animation accélérée, au lieu de recalculer chaque élément à chaque image.
+ */
+export function setTheme(theme: Theme, origin?: { x: number; y: number }): void {
   try {
     localStorage.setItem(STORAGE_KEY, theme)
   } catch {
     // Stockage indisponible (navigation privée…) : le choix vaut pour cette visite.
   }
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (reduce || typeof document.startViewTransition !== 'function') {
+    apply(theme)
+    return
+  }
+
+  // flushSync : React redessine tout de suite les composants qui lisent le thème,
+  // pour que la capture « après » soit complète (l'affichage est suspendu pendant ce temps).
+  const transition = document.startViewTransition(() => flushSync(() => apply(theme)))
+
+  const x = origin?.x ?? window.innerWidth / 2
+  const y = origin?.y ?? 0
+  const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
+  void transition.ready.then(() => {
+    document.documentElement.animate(
+      { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+      { duration: 480, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', pseudoElement: '::view-transition-new(root)' }
+    )
+  })
 }
 
 export function useTheme(): Theme {
