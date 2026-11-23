@@ -1,0 +1,13 @@
+# Déploiement Netlify : build Vite, site statique dans dist/.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Fichiers à hachage : cache long. index.html reste toujours frais.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
