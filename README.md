@@ -44,7 +44,7 @@ npx netlify deploy --prod --dir=dist
 
 ## Avant la mise en ligne
 
-- **Liens de téléchargement** : remplace les ancres provisoires dans `src/lib/hooks.ts` (`DOWNLOADS`).
+- **Liste d'attente** : le formulaire (`src/components/Waitlist.tsx`) envoie les e-mails via Netlify Forms (formulaire « lancement »). Sur Vercel ou ailleurs, change `WAITLIST_ENDPOINT` pour pointer vers ton outil d'emailing.
 - **Image de partage** : ajoute `public/og-image.png` (1200 × 630), référencée dans `index.html`.
 - **Pied de page** : les liens Confidentialité et Contact pointent vers des ancres provisoires (`src/components/Footer.tsx`).
 

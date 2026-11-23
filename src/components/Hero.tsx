@@ -4,14 +4,12 @@ import { Avatar } from '@/components/avatar/Avatar'
 import BlurText from '@/components/BlurText'
 import RotatingText, { type RotatingTextRef } from '@/components/RotatingText'
 import { AGENTS } from '@/data/agents'
-import { DOWNLOADS, useMediaQuery, usePlatform, useReducedMotion } from '@/lib/hooks'
-import { DownloadIcon } from './icons'
+import Waitlist from '@/components/Waitlist'
+import { useMediaQuery, useReducedMotion } from '@/lib/hooks'
 
 const TOPICS = AGENTS.map((a) => a.topic)
 
 export default function Hero() {
-  const platform = usePlatform()
-  const other = platform === 'mac' ? 'windows' : 'mac'
   const rotatorRef = useRef<RotatingTextRef>(null)
   const [active, setActive] = useState(0)
 
@@ -43,24 +41,17 @@ export default function Hero() {
 
         <Subtitle />
 
-        <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
-          <a href={DOWNLOADS[platform].href} className="btn-primary w-full sm:w-auto">
-            <DownloadIcon />
-            Télécharger pour {DOWNLOADS[platform].label}
-          </a>
-          <a href="#demo" className="btn-ghost w-full sm:w-auto">
+        <div className="mt-9">
+          <Waitlist />
+        </div>
+        <p className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-muted lg:justify-start">
+          <span>Bientôt sur macOS</span>
+          <span aria-hidden="true">·</span>
+          <span>Tes données restent sur ta machine</span>
+          <span aria-hidden="true">·</span>
+          <a href="#demo" className="underline decoration-[var(--accent-line)] underline-offset-4 hover:text-text">
             Voir comment ça marche
           </a>
-        </div>
-        <p className="mt-4 text-sm text-muted">
-          Aussi pour{' '}
-          <a
-            href={DOWNLOADS[other].href}
-            className="underline decoration-[var(--accent-line)] underline-offset-4 hover:text-text"
-          >
-            {DOWNLOADS[other].label}
-          </a>
-          <span className="block sm:inline"><span className="hidden sm:inline"> · </span>Tes données restent sur ta machine</span>
         </p>
       </div>
 

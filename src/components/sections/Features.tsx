@@ -20,9 +20,9 @@ const I = (d: string) => (
 
 const TILES: Tile[] = [
   {
-    title: 'Une bulle, un raccourci',
-    text: 'Ta galerie d’agents s’ouvre d’un clic sur l’icône flottante, ou d’un raccourci clavier depuis n’importe quelle app.',
-    icon: I('M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 5v4l3 2'),
+    title: 'Une question, sans quitter ton app',
+    text: 'Un raccourci ouvre la palette au centre de l’écran. Tu choisis l’agent, tu demandes, tu copies la réponse. Ou tu continues dans le panneau.',
+    icon: I('M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z'),
     color: '#c8f031',
     className: 'md:col-span-2',
     extra: (
@@ -41,28 +41,28 @@ const TILES: Tile[] = [
     )
   },
   {
-    title: 'Création guidée',
-    text: 'Identité, apparence, personnalité, compétences : quatre étapes, ou une seule phrase avec « Générer avec l’IA ».',
-    icon: I('M12 3v3m0 12v3M3 12h3m12 0h3M6 6l2 2m8 8 2 2M6 18l2-2m8-8 2-2'),
-    color: '#8b5cf6'
+    title: 'Des tâches qui tournent seules',
+    text: 'Une consigne, des jours, une heure. Le résultat t’attend dans une conversation, avec une notification. Et ton fantôme fait la fête.',
+    icon: I('M8 3v3m8-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm4 9 2 2 4-4'),
+    color: '#8e5cf6'
   },
   {
-    title: 'Des personnalités vivantes',
-    text: 'Avatars animés qui clignent, réfléchissent et changent d’expression selon le ton de leurs réponses.',
-    icon: I('M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z'),
-    color: '#5b9dff'
+    title: 'Fichiers et documents',
+    text: 'Glisse une image, un PDF ou un texte dans la conversation. Ou donne à un agent son propre dossier de documents, en lecture seule.',
+    icon: I('M21 11.5 12.6 19.9a5.5 5.5 0 0 1-7.8-7.8L13.2 3.7a3.7 3.7 0 0 1 5.2 5.2L10 17.3a1.8 1.8 0 0 1-2.6-2.6L15 7.1'),
+    color: '#6fb4ff'
   },
   {
     title: 'Outils et connecteurs',
-    text: 'Recherche web limitée aux sites de confiance que tu choisis, et connexion à tes applications métier via MCP.',
+    text: 'Recherche et lecture web limitées aux sites de confiance que tu choisis, et connexion à tes applications métier via MCP.',
     icon: I('M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.5-1.5'),
-    color: '#3fae5e',
+    color: '#2e9e6b',
     className: 'md:col-span-2'
   },
   {
-    title: 'Toujours ton feu vert',
-    text: 'Envoyer, modifier, supprimer : toute action sensible attend ta confirmation explicite.',
-    icon: I('M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Zm-3 9 2 2 4-4'),
+    title: 'Un historique qui se retrouve',
+    text: 'Cherche un mot, il retrouve la conversation. Épingle celles qui comptent, exporte-les en Markdown.',
+    icon: I('M12 8v4l2.5 2.5M3.5 12a8.5 8.5 0 1 0 2.5-6L3.5 8.5M3.5 4v4.5H8'),
     color: '#f2c14e'
   },
   {

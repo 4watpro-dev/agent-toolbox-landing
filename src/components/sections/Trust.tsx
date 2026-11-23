@@ -5,9 +5,10 @@ import { AGENTS } from '@/data/agents'
 import { useIsLight } from '@/lib/theme'
 
 const POINTS = [
-  'Rien ne s’envoie, ne se modifie ni ne se supprime sans ta confirmation.',
-  'Tes agents, leurs conversations et leur mémoire restent sur ta machine.',
-  'Ta clé API est chiffrée. Tu peux relire et corriger ce que chaque agent retient.'
+  'Les lectures passent seules. Envoyer, modifier, supprimer : l’action s’affiche en détail et attend ton clic sur « Confirmer ».',
+  'Pas de réponse au bout de 5 minutes ? L’action n’est pas exécutée.',
+  'Tes agents, leurs conversations et leur mémoire restent sur ta machine. Ta clé API est chiffrée.',
+  'Tu peux relire et corriger ce que chaque agent retient.'
 ]
 
 export default function Trust() {

@@ -1,5 +1,19 @@
 @import 'tailwindcss';
 
+/* Polices de secours calibrées sur Bricolage Grotesque et Inter : le texte occupe
+   la même largeur avant et après le chargement des polices (pas de décalage). */
+@font-face {
+  font-family: 'Bricolage Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Arial');
+  font-weight: 600 800;
+  size-adjust: 101.7%;
+}
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('ArialMT');
+  size-adjust: 106.2%;
+}
+
 /* Jetons repris du panneau d'Agent Toolbox. Sombre par défaut, clair si le système le demande. */
 :root {
   color-scheme: dark;
@@ -48,8 +62,8 @@
   --color-border: var(--border);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
-  --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Bricolage Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
 html {
@@ -195,3 +209,51 @@ body {
 /* FAQ : le chevron tourne à l'ouverture. */
 details[open] .faq-chevron { transform: rotate(45deg); }
 details summary::-webkit-details-marker { display: none; }
+
+/* Scènes de la bulle de démo, reprises de l'icône de l'app (widget.css). */
+.widget-ghost { display: grid; place-items: center; }
+.widget-ghost.is-celebrating { animation: ghost-hop 650ms cubic-bezier(0.3, 1.4, 0.5, 1) 4; }
+@keyframes ghost-hop {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  35% { transform: translateY(-7px) rotate(-6deg); }
+  65% { transform: translateY(1px) rotate(5deg); }
+}
+.widget-ghost.is-waking { animation: ghost-wake 420ms cubic-bezier(0.3, 1.6, 0.5, 1); }
+@keyframes ghost-wake { 40% { transform: translateY(-5px) scale(1.12); } }
+.widget-zzz {
+  position: absolute;
+  top: 4px;
+  right: 9px;
+  color: #c8f031;
+  font: 600 12px/1 var(--font-sans);
+  opacity: 0;
+  pointer-events: none;
+  animation: ghost-zzz 3.2s ease-in-out infinite;
+}
+@keyframes ghost-zzz {
+  0% { opacity: 0; transform: translate(0, 4px) scale(0.8); }
+  30% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(4px, -6px) scale(1.15); }
+}
+.widget-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgb(28 31 37);
+  border-radius: 50%;
+  background: #c8f031;
+}
+.widget-badge.is-new { animation: badge-pulse 1s ease-out 5; }
+@keyframes badge-pulse {
+  0% { box-shadow: 0 0 0 0 rgb(200 240 49 / 70%); }
+  100% { box-shadow: 0 0 0 8px rgb(200 240 49 / 0%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .widget-ghost.is-celebrating, .widget-ghost.is-waking, .widget-zzz, .widget-badge.is-new { animation: none; }
+  .widget-zzz { opacity: 0.9; }
+}
+
+/* Les fenêtres simulées prennent le focus à l’ouverture : pas d’anneau autour d’elles. */
+[role="dialog"]:focus-visible { outline: none; }

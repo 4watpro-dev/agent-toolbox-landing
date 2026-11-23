@@ -1,19 +1,16 @@
 import { Avatar } from '@/components/avatar/Avatar'
 import ClickSpark from '@/components/ClickSpark'
 import GradientText from '@/components/GradientText'
-import { DownloadIcon } from '@/components/icons'
 import { Reveal, Section } from '@/components/ui'
 import { AGENTS } from '@/data/agents'
-import { DOWNLOADS, usePlatform } from '@/lib/hooks'
+import Waitlist from '@/components/Waitlist'
 import { useIsLight } from '@/lib/theme'
 
 export default function FinalCta() {
-  const platform = usePlatform()
-  const other = platform === 'mac' ? 'windows' : 'mac'
   const light = useIsLight()
 
   return (
-    <Section id="telecharger" labelledBy="cta-title">
+    <Section id="lancement" labelledBy="cta-title">
       <Reveal>
         <div className="glass relative overflow-hidden rounded-[2rem] px-6 py-14 text-center sm:px-12 sm:py-20">
           <div
@@ -37,18 +34,13 @@ export default function FinalCta() {
             </GradientText>
           </h2>
           <p className="relative mx-auto mt-4 max-w-xl text-lg text-muted">
-            Deux minutes pour l’installer, une phrase pour le créer. Le reste, c’est lui qui s’en charge.
+            Laisse ton e-mail : on te prévient dès que l’app est prête pour ton Mac. Ensuite, une phrase suffit pour créer ton premier agent.
           </p>
-          <div className="relative mt-9 flex flex-col items-center gap-4">
+          <div className="relative mt-9">
             <ClickSpark sparkColor={['#c8f031', '#a78bfa', '#7cb6ff']} sparkCount={10} sparkRadius={28}>
-              <a href={DOWNLOADS[platform].href} className="btn-primary min-h-14 px-8 text-lg">
-                <DownloadIcon />
-                Télécharger pour {DOWNLOADS[platform].label}
-              </a>
+              <Waitlist size="lg" align="center" />
             </ClickSpark>
-            <a href={DOWNLOADS[other].href} className="text-sm text-muted underline decoration-[var(--accent-line)] underline-offset-4 hover:text-text">
-              Télécharger pour {DOWNLOADS[other].label}
-            </a>
+            <p className="mt-4 text-sm text-muted">Un seul e-mail, le jour du lancement. Pas de spam, promis.</p>
           </div>
         </div>
       </Reveal>

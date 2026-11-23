@@ -6,7 +6,7 @@
     <title>Agent Toolbox : tes agents IA, toujours à portée de clic</title>
     <meta
       name="description"
-      content="Crée tes propres agents IA, chacun avec sa personnalité. Ils vivent dans une petite icône flottante sur ton bureau. Gratuit pour macOS et Windows."
+      content="Crée tes propres agents IA, chacun avec sa personnalité. Ils vivent dans une petite icône flottante sur ton Mac. Inscris-toi pour être prévenu du lancement."
     />
     <meta name="theme-color" content="#0e1014" />
     <script>
@@ -52,6 +52,11 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Formulaire statique : permet à Netlify Forms de détecter la liste d'attente au build. -->
+    <form name="lancement" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="email" name="email" />
+      <input name="bot-field" />
+    </form>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

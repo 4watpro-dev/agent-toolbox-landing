@@ -5,6 +5,7 @@ import Faq from '@/components/sections/Faq'
 import Features from '@/components/sections/Features'
 import FinalCta from '@/components/sections/FinalCta'
 import Steps from '@/components/sections/Steps'
+import Teams from '@/components/sections/Teams'
 import Trust from '@/components/sections/Trust'
 
 /** Tout ce qui suit le hero, chargé dans un fichier séparé. */
@@ -13,6 +14,7 @@ export default function BelowFold() {
     <>
       <Demo />
       <Agents />
+      <Teams />
       <Steps />
       <Features />
       <Trust />

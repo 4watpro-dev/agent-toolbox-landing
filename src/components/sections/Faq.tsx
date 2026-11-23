@@ -3,15 +3,15 @@ import { Reveal, Section, SectionHeading } from '@/components/ui'
 const FAQ = [
   {
     q: 'Combien ça coûte ?',
-    a: 'L’application est gratuite. Tu utilises ta propre clé API : tu ne paies que ce que tes agents consomment, directement auprès du fournisseur d’IA.'
+    a: 'Le tarif sera annoncé au lancement. Inscris-toi à la liste d’attente : tu seras parmi les premiers à le connaître.'
   },
   {
     q: 'Sur quels systèmes ça marche ?',
-    a: 'Sur macOS et sur Windows. La bulle flottante et le raccourci clavier fonctionnent de la même façon sur les deux.'
+    a: 'Sur macOS pour commencer. L’app vit dans un coin de l’écran, dans le Dock et dans ⌘ Tab, comme tes autres apps.'
   },
   {
     q: 'Faut-il une clé API ?',
-    a: 'Oui. Tu la colles une fois au premier lancement, elle est chiffrée sur ta machine et ne sert qu’à faire parler tes agents.'
+    a: 'Une clé API suffit pour démarrer. Tu la colles une fois, elle est chiffrée sur ta machine et ne sert qu’à faire parler tes agents.'
   },
   {
     q: 'Mes données sont-elles privées ?',

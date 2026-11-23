@@ -15,20 +15,3 @@ export function useMediaQuery(query: string): boolean {
 }
 
 export const useReducedMotion = (): boolean => useMediaQuery('(prefers-reduced-motion: reduce)')
-
-export type Platform = 'mac' | 'windows'
-
-/** Système du visiteur, pour afficher le bon bouton de téléchargement. macOS par défaut. */
-export function usePlatform(): Platform {
-  const [platform, setPlatform] = useState<Platform>('mac')
-  useEffect(() => {
-    if (/Win/i.test(navigator.userAgent)) setPlatform('windows')
-  }, [])
-  return platform
-}
-
-/** Liens de téléchargement : à remplacer par les vraies URL de release. */
-export const DOWNLOADS: Record<Platform, { label: string; href: string }> = {
-  mac: { label: 'macOS', href: '#telecharger-mac' },
-  windows: { label: 'Windows', href: '#telecharger-windows' }
-}
