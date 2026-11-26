@@ -2,6 +2,7 @@ import { motion, useInView } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 import { Avatar } from '@/components/avatar/Avatar'
 import { Reveal, Section, SectionHeading } from '@/components/ui'
+import { formatElapsed, TeamProgress, useNow, WorkingLine, type StepState } from '@/components/WorkingLine'
 import { AGENTS } from '@/data/agents'
 import type { AvatarState } from '@/lib/avatar'
 import { useReducedMotion } from '@/lib/hooks'
@@ -21,6 +22,8 @@ export default function Teams() {
   const inView = useInView(ref, { once: true, margin: '0px 0px -20% 0px' })
   const reduced = useReducedMotion()
   const [step, setStep] = useState(0)
+  const [startedAt, setStartedAt] = useState<number | null>(null)
+  const now = useNow(step >= 1 && step < STEPS)
 
   useEffect(() => {
     if (!inView) return
@@ -28,11 +31,25 @@ export default function Teams() {
       setStep(STEPS)
       return
     }
-    const timers = [1, 2, 3, 4].map((s, i) => window.setTimeout(() => setStep(s), 500 + i * 1300))
+    const timers = [1, 2, 3, 4].map((s, i) =>
+      window.setTimeout(() => {
+        if (s === 1) setStartedAt(Date.now())
+        setStep(s)
+      }, 500 + i * 1600)
+    )
     return () => timers.forEach((t) => window.clearTimeout(t))
   }, [inView, reduced])
 
   const chiefState: AvatarState = step === 1 ? 'thinking' : step >= 4 ? 'happy' : 'listening'
+
+  // Comme dans l'app : un segment par étape (répartition, chaque membre, réponse).
+  const at = (doneFrom: number, currentAt: number): StepState => (step >= doneFrom ? 'done' : step === currentAt ? 'current' : 'pending')
+  const steps = [
+    { key: 'split', label: `${CHIEF.name} répartit le travail`, state: at(2, 1) },
+    ...MEMBERS.map(({ agent }) => ({ key: agent.id, label: `${agent.name} fait sa part`, state: at(3, 2) })),
+    { key: 'answer', label: `${CHIEF.name} rédige la réponse`, state: at(4, 3) }
+  ]
+  const elapsed = startedAt && step < STEPS ? formatElapsed(now - startedAt) : undefined
 
   return (
     <Section id="equipes" labelledBy="teams-title">
@@ -45,8 +62,10 @@ export default function Teams() {
 
       <Reveal className="mx-auto mt-14 max-w-4xl">
         <div ref={ref} className="glass rounded-[2rem] p-5 sm:p-8">
+          <TeamProgress steps={steps} elapsed={elapsed} />
+
           {/* Ta demande */}
-          <div className="ml-auto max-w-md rounded-2xl rounded-br-sm bg-accent px-4 py-3 text-[0.95rem] leading-snug text-accent-text">
+          <div className="mt-6 ml-auto max-w-md rounded-2xl rounded-br-sm bg-accent px-4 py-3 text-[0.95rem] leading-snug text-accent-text">
             Prépare le lancement de la tournée : un email pour les abonnés et un post pour annoncer les dates.
           </div>
 
@@ -85,7 +104,11 @@ export default function Teams() {
                         </span>
                       )}
                     </p>
-                    <p className="text-sm leading-snug text-muted">{working ? 'Au travail…' : part}</p>
+                    {working ? (
+                      <WorkingLine text="Au travail…" bar={false} />
+                    ) : (
+                      <p className="text-sm leading-snug text-muted">{part}</p>
+                    )}
                   </div>
                 </motion.li>
               )

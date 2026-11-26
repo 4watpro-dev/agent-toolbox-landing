@@ -7,8 +7,9 @@ import { useIsLight } from '@/lib/theme'
 const POINTS = [
   'Les lectures passent seules. Envoyer, modifier, supprimer : l’action s’affiche en détail et attend ton clic sur « Confirmer ».',
   'Pas de réponse au bout de 5 minutes ? L’action n’est pas exécutée.',
-  'Tes agents, leurs conversations et leur mémoire restent sur ta machine. Ta clé API est chiffrée.',
-  'Tu peux relire et corriger ce que chaque agent retient.'
+  'Une page web hors des sites que tu as autorisés ? Son adresse complète s’affiche, et rien ne s’ouvre sans ton feu vert.',
+  'Un agent importé arrive sans accès à tes dossiers ni à tes connecteurs : c’est toi qui les lui donnes.',
+  'Tes agents, leurs conversations et leur mémoire restent sur ta machine. Ta clé API est chiffrée.'
 ]
 
 export default function Trust() {

@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Avatar } from '@/components/avatar/Avatar'
 import { Kbd, Reveal, Section, SectionHeading } from '@/components/ui'
+import { WorkingLine } from '@/components/WorkingLine'
 import { AGENTS, type Agent } from '@/data/agents'
 import type { AvatarState } from '@/lib/avatar'
 import { useReducedMotion } from '@/lib/hooks'
@@ -402,12 +403,13 @@ function ChatView({
   onAnswered: () => void
 }) {
   const [state, setState] = useState<'thinking' | 'happy'>(carried ? 'happy' : 'thinking')
+  const [since] = useState(Date.now)
   useEffect(() => {
     if (carried) return
     const t = setTimeout(() => {
       setState('happy')
       onAnswered()
-    }, 1100)
+    }, 2300)
     return () => clearTimeout(t)
   }, [])
 
@@ -436,9 +438,9 @@ function ChatView({
         <Avatar config={agent.avatar} size={84} state={state} label={`${agent.name}, avatar`} />
         <AnimatePresence mode="wait">
           {state === 'thinking' ? (
-            <motion.p key="dots" exit={{ opacity: 0 }} className="text-sm text-[var(--app-muted)]">
-              {agent.name} réfléchit…
-            </motion.p>
+            <motion.div key="dots" exit={{ opacity: 0 }} className="flex w-full flex-col items-center [&_.working]:items-center">
+              <WorkingLine text={`${agent.name} réfléchit…`} since={since} />
+            </motion.div>
           ) : (
             <motion.p
               key="msg"
@@ -480,6 +482,7 @@ function Palette({
   const [typed, setTyped] = useState('')
   const [phase, setPhase] = useState<'typing' | 'thinking' | 'answered'>('typing')
   const [copied, setCopied] = useState(false)
+  const [thinkingSince, setThinkingSince] = useState(Date.now)
   const agent = GALLERY[index]
   const { q, a } = QUICK[agent.id]
   const panelRef = useRef<HTMLDivElement>(null)
@@ -506,12 +509,17 @@ function Palette({
       setTyped(q.slice(0, i))
       if (i < q.length) timers.push(window.setTimeout(step, 28))
       else {
-        timers.push(window.setTimeout(() => setPhase('thinking'), 250))
+        timers.push(
+          window.setTimeout(() => {
+            setThinkingSince(Date.now())
+            setPhase('thinking')
+          }, 250)
+        )
         timers.push(
           window.setTimeout(() => {
             setPhase('answered')
             onAnswered()
-          }, 1350)
+          }, 2350)
         )
       }
     }
@@ -568,7 +576,7 @@ function Palette({
       </ul>
 
       <div className="mt-3 min-h-16" aria-live="polite">
-        {phase === 'thinking' && <p className="text-sm text-[var(--app-muted)]">{agent.name} réfléchit…</p>}
+        {phase === 'thinking' && <WorkingLine text={`${agent.name} réfléchit…`} since={thinkingSince} />}
         {phase === 'answered' && (
           <motion.p
             initial={{ opacity: 0, y: 6 }}

@@ -54,7 +54,7 @@ const TILES: Tile[] = [
   },
   {
     title: 'Outils et connecteurs',
-    text: 'Recherche et lecture web limitées aux sites de confiance que tu choisis, et connexion à tes applications métier via MCP.',
+    text: 'Recherche et lecture web limitées aux sites de confiance que tu choisis. Tes applications métier se branchent via MCP, en un clic avec ton compte, et se débranchent depuis la fiche de l’agent.',
     icon: I('M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.5-1.5'),
     color: '#2e9e6b',
     className: 'md:col-span-2'
