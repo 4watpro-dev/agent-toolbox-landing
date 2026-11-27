@@ -10,14 +10,13 @@ const root = (): HTMLElement => document.documentElement
  * Le thème vit dans l'attribut `data-theme` de <html>. Un script dans index.html
  * le pose avant le premier affichage avec la même règle que `resolve()`.
  *
- * Sur mobile (< 768 px) il n'y a pas de switch : on suit toujours le système.
- * Sur grand écran, le choix enregistré l'emporte, sinon c'est le sombre.
+ * Sombre par défaut. Sur mobile (< 768 px) il n'y a pas de switch : toujours sombre.
+ * Sur grand écran, le choix enregistré l'emporte.
  */
 const MOBILE = '(max-width: 767px)'
-const SYSTEM_LIGHT = '(prefers-color-scheme: light)'
 
 function resolve(): Theme {
-  if (window.matchMedia(MOBILE).matches) return window.matchMedia(SYSTEM_LIGHT).matches ? 'light' : 'dark'
+  if (window.matchMedia(MOBILE).matches) return 'dark'
   return savedTheme() ?? 'dark'
 }
 
@@ -31,17 +30,17 @@ const listeners = new Set<() => void>()
 function subscribe(onChange: () => void): () => void {
   listeners.add(onChange)
 
-  // Changement du thème système, ou passage mobile ↔ grand écran : on recalcule.
-  const queries = [window.matchMedia(SYSTEM_LIGHT), window.matchMedia(MOBILE)]
+  // Passage mobile ↔ grand écran : on recalcule.
+  const mobile = window.matchMedia(MOBILE)
   const onMedia = (): void => {
     const next = resolve()
     if (next !== read()) apply(next)
   }
-  queries.forEach((q) => q.addEventListener('change', onMedia))
+  mobile.addEventListener('change', onMedia)
 
   return () => {
     listeners.delete(onChange)
-    queries.forEach((q) => q.removeEventListener('change', onMedia))
+    mobile.removeEventListener('change', onMedia)
   }
 }
 

@@ -27,7 +27,7 @@ export default function Nav() {
           ))}
         </ul>
         <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* Pas de switch sur mobile : le thème y suit celui de l'appareil. */}
+          {/* Pas de switch sur mobile : la page y reste en sombre. */}
           <div className="hidden md:block">
             <ThemeToggle />
           </div>
