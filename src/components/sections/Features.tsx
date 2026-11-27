@@ -42,7 +42,7 @@ const TILES: Tile[] = [
   },
   {
     title: 'Des tâches qui tournent seules',
-    text: 'Une consigne, des jours, une heure. Le résultat t’attend dans une conversation, avec une notification. Et ton fantôme fait la fête.',
+    text: 'Une consigne, des jours, une heure. Le résultat t’attend dans une conversation, avec une notification. Et ton agent fait la fête.',
     icon: I('M8 3v3m8-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm4 9 2 2 4-4'),
     color: '#8e5cf6'
   },

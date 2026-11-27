@@ -74,7 +74,7 @@ const Subtitle = memo(function Subtitle() {
   )
 })
 
-/** Regard des fantômes : suit le curseur, dans la limite de ±4 unités. */
+/** Regard des agents : suit le curseur, dans la limite de ±4 unités. */
 function useLook(target: React.RefObject<HTMLElement | null>, enabled: boolean) {
   const [look, setLook] = useState({ x: 0, y: 0 })
   useEffect(() => {
