@@ -163,7 +163,7 @@ export default function Demo() {
                   exit={{ opacity: 0 }}
                   className="glass absolute right-24 bottom-7 hidden rounded-full px-3 py-1.5 text-sm sm:block"
                 >
-                  {mood.scene === 'is-asleep' ? 'Chut… il fait la sieste' : 'Clique-moi'} <span aria-hidden="true">👉</span>
+                  Cliquez sur moi <span aria-hidden="true">👉</span>
                 </motion.p>
               )}
             </AnimatePresence>
